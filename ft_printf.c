@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 int		ft_printf(const char *fmt, ...)
 {
-	t_struct *info;
+	t_stc *inf;
 
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
+	if (!(inf = (t_stc*)malloc(sizeof(t_stc))))
 		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
+	inf->fmt = fmt;
+	inf = ft_initialize(inf);
 	if (fmt)
 	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
+		va_start(inf->arg, fmt);
+		inf->len = ft_parsers(inf);
+		va_end(inf->arg);
 	}
-	free(info);
-	return (info->len);
+	free(inf);
+	return (inf->len);
 }

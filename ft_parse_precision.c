@@ -6,94 +6,94 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:26 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 15:55:49 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_struct	*ft_prec_just_num(t_struct *info)
+static t_stc	*ft_prec_just_num(t_stc *inf)
 {
-	while (info->f_t[info->i] >= '0' && info->f_t[info->i] <= '9')
+	while (inf->f_t[inf->i] >= '0' && inf->f_t[inf->i] <= '9')
 	{
-		info->precision *= 10;
-		info->precision += (info->f_t[info->i] - 48);
-		info->i++;
+		inf->precision *= 10;
+		inf->precision += (inf->f_t[inf->i] - 48);
+		inf->i++;
 	}
-	return (info);
+	return (inf);
 }
 
-static t_struct	*ft_num(t_struct *info)
+static t_stc	*ft_num(t_stc *inf)
 {
-	if (info->f_t[info->i] >= '0' && info->f_t[info->i] <= '9')
+	if (inf->f_t[inf->i] >= '0' && inf->f_t[inf->i] <= '9')
 	{
-		ft_prec_just_num(info);
-		return (info);
+		ft_prec_just_num(inf);
+		return (inf);
 	}
-	if (info->f_t[info->i + 1] == '.' && (info->f_t[info->i] >= '0'
-				&& info->f_t[info->i] <= '9'))
+	if (inf->f_t[inf->i + 1] == '.' && (inf->f_t[inf->i] >= '0'
+				&& inf->f_t[inf->i] <= '9'))
 	{
-		while (info->f_t[info->i + 2] >= '0' && info->f_t[info->i + 2] <= '9')
+		while (inf->f_t[inf->i + 2] >= '0' && inf->f_t[inf->i + 2] <= '9')
 		{
-			info->precision *= 10;
-			info->precision += (info->f_t[info->i + 2] - 48);
-			info->i++;
+			inf->precision *= 10;
+			inf->precision += (inf->f_t[inf->i + 2] - 48);
+			inf->i++;
 		}
-		info->i = info->i + 2;
-		return (info);
+		inf->i = inf->i + 2;
+		return (inf);
 	}
 	else
 	{
-		info->i++;
-		if (info->convert[6] == '.' &&
-				(info->f_t[info->i] < '0' && info->f_t[info->i] > '9'))
-			info->i++;
-		return (info);
+		inf->i++;
+		if (inf->convert[6] == '.' &&
+				(inf->f_t[inf->i] < '0' && inf->f_t[inf->i] > '9'))
+			inf->i++;
+		return (inf);
 	}
 }
 
-static t_struct	*ft_dot(t_struct *info)
+static t_stc	*ft_dot(t_stc *inf)
 {
-	info->i++;
-	info->precision = 0;
-	if (info->f_t[info->i] == 's' || info->f_t[info->i] == 'c'
-			|| info->f_t[info->i] == 'd' || info->f_t[info->i] == 'p'
-			|| info->f_t[info->i] == 'x' || info->f_t[info->i] == 'X'
-			|| info->f_t[info->i] == 'i' || info->f_t[info->i] == 'u')
-		ft_parse_specifiers(info);
-	(info->convert[0] == '-' && info->f_t[info->i - 1] != '.') ? info->i -= 2 : 0;
-	(info->convert[0] != '-' && info->f_t[info->i - 1] != '.') ? info->i -= 1 : 0;
-	(info->f_t[info->i] == '*') ? info->precision = info->widht : 0;
-	(info->f_t[info->i] == '*') ? info->i++ : 0;
-	(info->convert[5] == '*' && info->n == 1) ? info->precision = info->widht : 0;
-	if (info->convert[0] != '-' && info->convert[5] == '*' &&
-			(info->f_t[info->i] >= '0' && info->f_t[info->i] <= '9'))
+	inf->i++;
+	inf->precision = 0;
+	if (inf->f_t[inf->i] == 's' || inf->f_t[inf->i] == 'c'
+			|| inf->f_t[inf->i] == 'd' || inf->f_t[inf->i] == 'p'
+			|| inf->f_t[inf->i] == 'x' || inf->f_t[inf->i] == 'X'
+			|| inf->f_t[inf->i] == 'i' || inf->f_t[inf->i] == 'u')
+		ft_parse_specifiers(inf);
+	(inf->convert[0] == '-' && inf->f_t[inf->i - 1] != '.') ? inf->i -= 2 : 0;
+	(inf->convert[0] != '-' && inf->f_t[inf->i - 1] != '.') ? inf->i -= 1 : 0;
+	(inf->f_t[inf->i] == '*') ? inf->precision = inf->widht : 0;
+	(inf->f_t[inf->i] == '*') ? inf->i++ : 0;
+	(inf->convert[5] == '*' && inf->n == 1) ? inf->precision = inf->widht : 0;
+	if (inf->convert[0] != '-' && inf->convert[5] == '*' &&
+			(inf->f_t[inf->i] >= '0' && inf->f_t[inf->i] <= '9'))
 	{
-		while (info->f_t[info->i - 1] >= '0' && info->f_t[info->i - 1] <= '9')
-			info->i--;
-		while (info->f_t[info->i] >= '0' && info->f_t[info->i] <= '9')
+		while (inf->f_t[inf->i - 1] >= '0' && inf->f_t[inf->i - 1] <= '9')
+			inf->i--;
+		while (inf->f_t[inf->i] >= '0' && inf->f_t[inf->i] <= '9')
 		{
-			info->precision *= 10;
-			info->precision += (info->f_t[info->i] - 48);
-			info->i++;
+			inf->precision *= 10;
+			inf->precision += (inf->f_t[inf->i] - 48);
+			inf->i++;
 		}
 	}
-	return (info);
+	return (inf);
 }
 
-t_struct			*ft_parse_precision(t_struct *info)
+t_stc			*ft_parse_precision(t_stc *inf)
 {
 	int len;
 
 	len = 0;
-	if ((info->convert[6] == '.') || (info->f_t[info->i] == '.'))
+	if ((inf->convert[6] == '.') || (inf->f_t[inf->i] == '.'))
 	{
-		ft_dot(info);
-		ft_num(info);
+		ft_dot(inf);
+		ft_num(inf);
 	}
-	if (info->precision == 0 && info->widht < 0)
-		info->precision = (-1);
-	if (info->p == 1)
-		info->precision = va_arg(info->arg, int);
-	return (info);
+	if (inf->precision == 0 && inf->widht < 0)
+		inf->precision = (-1);
+	if (inf->p == 1)
+		inf->precision = va_arg(inf->arg, int);
+	return (inf);
 }

@@ -6,22 +6,22 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:37 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 15:55:48 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_struct	*ft_parse_specifiers(t_struct *info)
+t_stc	*ft_parse_specifiers(t_stc *inf)
 {
 	size_t	i;
 
 	i = 0;
-	while (info->specifiers[i] != '\0')
+	while (inf->specifiers[i] != '\0')
 	{
-		if (info->specifiers[i] == info->f_t[info->i])
-			info->specifiers_flags = info->specifiers[i];
+		if (inf->specifiers[i] == inf->f_t[inf->i])
+			inf->specifiers_flags = inf->specifiers[i];
 		i++;
 	}
-	return (info);
+	return (inf);
 }

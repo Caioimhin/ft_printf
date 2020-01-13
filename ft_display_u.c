@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:20:25 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/10 15:55:49 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 10:02:54 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,79 +22,79 @@ static int		ft_obtain_ten(uintmax_t num)
 	return (ten);
 }
 
-static t_struct	*ft_do_u(t_struct *info, uintmax_t num, int num_width)
+static t_stc	*ft_do_u(t_stc *inf, uintmax_t num, int num_width)
 {
 	int			not_blank;
 	int			left;
 
 	not_blank = num_width;
 	left = 0;
-	(info->convert[0] == '-') ? left = 1 : 0;
-	if (num_width <= info->precision)
-		not_blank = info->precision;
-	info->len += (not_blank <= info->widht) ? info->widht : not_blank;
+	(inf->convert[0] == '-') ? left = 1 : 0;
+	if (num_width <= inf->precision)
+		not_blank = inf->precision;
+	inf->len += (not_blank <= inf->widht) ? inf->widht : not_blank;
 	if (!left)
-		ft_display_widht(info, ' ', info->widht - not_blank, 0);
-	ft_display_widht(info, '0', info->precision - num_width, 0);
+		ft_display_widht(inf, ' ', inf->widht - not_blank, 0);
+	ft_display_widht(inf, '0', inf->precision - num_width, 0);
 	ft_putnbrumax_fd(num, 1);
 	if (left)
-		ft_display_widht(info, ' ', info->widht - not_blank, 0);
-	return (info);
+		ft_display_widht(inf, ' ', inf->widht - not_blank, 0);
+	return (inf);
 }
 
-static t_struct	*ft_space(t_struct *info)
+static t_stc	*ft_space(t_stc *inf)
 {
-	if (info->convert[0] != '-' && info->widht == 0)
-		ft_display_widht(info, ' ', info->widht, 1);
-	if (info->convert[0] != '-' && info->widht != 0 && info->precision > 0)
+	if (inf->convert[0] != '-' && inf->widht == 0)
+		ft_display_widht(inf, ' ', inf->widht, 1);
+	if (inf->convert[0] != '-' && inf->widht != 0 && inf->precision > 0)
 	{
-		ft_display_widht(info, ' ', info->widht - 1, 1);
+		ft_display_widht(inf, ' ', inf->widht - 1, 1);
 		ft_putchar('0');
 	}
-	if (info->convert[0] == '-' && info->widht != 0 && info->precision == -1)
+	if (inf->convert[0] == '-' && inf->widht != 0 && inf->precision == -1)
 	{
 		ft_putchar('0');
-		ft_display_widht(info, ' ', info->widht - 1, 1);
-		return (info);
+		ft_display_widht(inf, ' ', inf->widht - 1, 1);
+		return (inf);
 	}
-	if (info->convert[0] == '-')
+	if (inf->convert[0] == '-')
 	{
-		info->i--;
-		ft_display_widht(info, ' ', info->widht, 1);
+		inf->i--;
+		ft_display_widht(inf, ' ', inf->widht, 1);
 	}
-	if (info->precision == 0 && info->widht > 0 && info->convert[0] != '-')
+	if (inf->precision == 0 && inf->widht > 0 && inf->convert[0] != '-')
 	{
-		ft_display_widht(info, ' ', info->widht, 0);
-		return (info);
+		ft_display_widht(inf, ' ', inf->widht, 0);
+		return (inf);
 	}
-	return (info);
+	return (inf);
 }
 
-t_struct			*ft_display_u(t_struct *info)
+t_stc			*ft_display_u(t_stc *inf)
 {
 	uintmax_t	num;
 	int			num_width;
 
-	num = (unsigned int)va_arg(info->arg, unsigned int);
-	if (num == 0 && info->precision == -1 && info->convert[6] != '.' &&
-		info->widht <= 0)
+	num = (unsigned int)va_arg(inf->arg, unsigned int);
+	if (num == 0 && inf->precision == -1 && inf->convert[6] != '.' &&
+		inf->widht <= 0)
 	{
 		ft_putchar('0');
-		return (info);
+		return (inf);
 	}
 	num_width = ft_obtain_ten(num);
-	if ((num == 0 && info->precision == -1 && info->widht <= 0) ||
-		(num == 0 && info->precision == 0))
+	if ((num == 0 && inf->precision == -1 && inf->widht <= 0) ||
+		(num == 0 && inf->precision == 0))
 	{
-		if (info->f_t[info->i - 1] == 'u' && info->convert[0] == '\0'
-			&& info->convert[3] == '\0')
-			info->i--;
-		(info->f_t[info->i] == 'u' && info->convert[0] == '-') ? info->i++ : 0;
-		ft_space(info);
-		return (info);
+		if (inf->f_t[inf->i - 1] == 'u' && inf->convert[0] == '\0'
+			&& inf->convert[3] == '\0')
+			inf->i--;
+		(inf->f_t[inf->i] == 'u' && inf->convert[0] == '-') ? inf->i++ : 0;
+		ft_space(inf);
+		return (inf);
 	}
-	if (info->convert[3] == '0' && info->precision == -1 && !info->convert[0])
-		info->precision = info->widht;
-	ft_do_u(info, num, num_width);
-	return (info);
+	if (inf->convert[3] == '0' && inf->precision == -1 && !inf->convert[0])
+		inf->precision = inf->widht;
+	ft_do_u(inf, num, num_width);
+	return (inf);
 }

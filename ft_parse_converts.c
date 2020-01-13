@@ -6,57 +6,57 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:18 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 15:55:48 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_struct	*ft_parse_stardotstar(t_struct *info)
+static t_stc	*ft_parse_stardotstar(t_stc *inf)
 {
-	if (info->f_t[info->i] == '.' && (!ft_isdigit(info->f_t[info->i + 1])) &&
-			info->f_t[info->i - 1] == '*')
-		info->p = 1;
-	if (info->f_t[info->i] == '.' && info->f_t[info->i + 1] == '*' &&
-			info->convert[5] != '*')
-		info->n = 1;
-	return (info);
+	if (inf->f_t[inf->i] == '.' && (!ft_isdigit(inf->f_t[inf->i + 1])) &&
+			inf->f_t[inf->i - 1] == '*')
+		inf->p = 1;
+	if (inf->f_t[inf->i] == '.' && inf->f_t[inf->i + 1] == '*' &&
+			inf->convert[5] != '*')
+		inf->n = 1;
+	return (inf);
 }
 
-static t_struct	*ft_parse(size_t i, t_struct *info)
+static t_stc	*ft_parse(size_t i, t_stc *inf)
 {
-	while (info->converters[i] != '\0')
+	while (inf->converters[i] != '\0')
 	{
-		ft_parse_stardotstar(info);
-		while (info->converters[i] == info->f_t[info->i])
+		ft_parse_stardotstar(inf);
+		while (inf->converters[i] == inf->f_t[inf->i])
 		{
-			while (info->f_t[info->i] == '-' && info->i++)
-				info->convert[0] = '-';
-			while (info->f_t[info->i] == '+' && info->i++)
-				info->convert[1] = '+';
-			while (info->f_t[info->i] == ' ' && info->i++)
-				info->convert[2] = ' ';
-			while (info->f_t[info->i] == '0' && info->i++)
-				info->convert[3] = '0';
-			while (info->f_t[info->i] == '#' && info->i++)
-				info->convert[4] = '#';
-			while (info->f_t[info->i] == '.' && info->i++)
-				info->convert[6] = '.';
-			while ((info->f_t[info->i] == '*' && info->i++) &&
-					info->convert[5] != '*')
-				info->convert[5] = '*';
+			while (inf->f_t[inf->i] == '-' && inf->i++)
+				inf->convert[0] = '-';
+			while (inf->f_t[inf->i] == '+' && inf->i++)
+				inf->convert[1] = '+';
+			while (inf->f_t[inf->i] == ' ' && inf->i++)
+				inf->convert[2] = ' ';
+			while (inf->f_t[inf->i] == '0' && inf->i++)
+				inf->convert[3] = '0';
+			while (inf->f_t[inf->i] == '#' && inf->i++)
+				inf->convert[4] = '#';
+			while (inf->f_t[inf->i] == '.' && inf->i++)
+				inf->convert[6] = '.';
+			while ((inf->f_t[inf->i] == '*' && inf->i++) &&
+					inf->convert[5] != '*')
+				inf->convert[5] = '*';
 			i = 0;
 		}
 		i++;
 	}
-	return (info);
+	return (inf);
 }
 
-t_struct			*ft_parse_converts(t_struct *info)
+t_stc			*ft_parse_converts(t_stc *inf)
 {
 	size_t	i;
 
 	i = 0;
-	ft_parse(i, info);
-	return (info);
+	ft_parse(i, inf);
+	return (inf);
 }

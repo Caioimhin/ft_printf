@@ -6,29 +6,29 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:52 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 15:55:49 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_parsers(t_struct *info)
+int		ft_parsers(t_stc *inf)
 {
-	if (ft_strcmp(info->f_copy, "%") == 0)
+	if (ft_strcmp(inf->f_copy, "%") == 0)
 		return (0);
-	while (info->f_copy[info->i] != '\0')
+	while (inf->f_copy[inf->i] != '\0')
 	{
-		if (info->f_copy[info->i] == '%')
+		if (inf->f_copy[inf->i] == '%')
 		{
-			ft_reinitialize(info);
-			ft_treatments(info);
+			ft_reinitialize(inf);
+			ft_treatments(inf);
 		}
 		else
 		{
-			write(1, &info->f_copy[info->i], 1);
-			info->len++;
+			write(1, &inf->f_copy[inf->i], 1);
+			inf->len++;
 		}
-		info->i++;
+		inf->i++;
 	}
-	return (info->len);
+	return (inf->len);
 }

@@ -6,71 +6,71 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:27:03 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 15:55:49 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_struct	*ft_direct_dot(t_struct *info)
+static t_stc	*ft_direct_dot(t_stc *inf)
 {
-	ft_parse_specifiers(info);
-	ft_send_displays(info);
-	return (info);
+	ft_parse_specifiers(inf);
+	ft_send_displays(inf);
+	return (inf);
 }
 
-static t_struct	*ft_sparks(t_struct *info)
+static t_stc	*ft_sparks(t_stc *inf)
 {
-	if (info->f_t[info->i + 1] == '.' && info->f_t[info->i] == '*')
+	if (inf->f_t[inf->i + 1] == '.' && inf->f_t[inf->i] == '*')
 	{
-		info->j = 1;
-		ft_parse_converts(info);
-		ft_parse_widht(info);
-		ft_parse_precision(info);
-		if ((info->f_t[info->i - 1] == 'd' || info->f_t[info->i - 1] == 'i' ||
-			info->f_t[info->i - 1] == 'u' || info->f_t[info->i - 1] == 'x' ||
-			info->f_t[info->i - 1] == 'X' || info->f_t[info->i - 1] == 'p' ||
-			info->f_t[info->i - 1] == 's') && info->precision > 0)
+		inf->j = 1;
+		ft_parse_converts(inf);
+		ft_parse_widht(inf);
+		ft_parse_precision(inf);
+		if ((inf->f_t[inf->i - 1] == 'd' || inf->f_t[inf->i - 1] == 'i' ||
+			inf->f_t[inf->i - 1] == 'u' || inf->f_t[inf->i - 1] == 'x' ||
+			inf->f_t[inf->i - 1] == 'X' || inf->f_t[inf->i - 1] == 'p' ||
+			inf->f_t[inf->i - 1] == 's') && inf->precision > 0)
 		{
-			info->i--;
-			ft_display_widht(info, ' ', info->widht - info->precision, 1);
+			inf->i--;
+			ft_display_widht(inf, ' ', inf->widht - inf->precision, 1);
 		}
-		ft_parse_specifiers(info);
-		ft_send_displays(info);
+		ft_parse_specifiers(inf);
+		ft_send_displays(inf);
 	}
-	return (info);
+	return (inf);
 }
 
-static t_struct	*ft_jzero(t_struct *info)
+static t_stc	*ft_jzero(t_stc *inf)
 {
-	ft_parse_converts(info);
-	ft_parse_widht(info);
-	ft_parse_precision(info);
-	ft_parse_specifiers(info);
-	ft_send_displays(info);
-	return (info);
+	ft_parse_converts(inf);
+	ft_parse_widht(inf);
+	ft_parse_precision(inf);
+	ft_parse_specifiers(inf);
+	ft_send_displays(inf);
+	return (inf);
 }
 
-int				ft_treatments(t_struct *info)
+int				ft_treatments(t_stc *inf)
 {
-	info->i++;
-	if (info->f_t[info->i] == '.' && info->f_t[info->i + 1] != '*')
+	inf->i++;
+	if (inf->f_t[inf->i] == '.' && inf->f_t[inf->i + 1] != '*')
 	{
-		ft_parse_converts(info);
-		if (info->f_t[info->i] == 'd' || info->f_t[info->i] == 'i' ||
-			info->f_t[info->i] == 'u' || info->f_t[info->i] == 'x' ||
-			info->f_t[info->i] == 'X' || info->f_t[info->i] == 'p')
+		ft_parse_converts(inf);
+		if (inf->f_t[inf->i] == 'd' || inf->f_t[inf->i] == 'i' ||
+			inf->f_t[inf->i] == 'u' || inf->f_t[inf->i] == 'x' ||
+			inf->f_t[inf->i] == 'X' || inf->f_t[inf->i] == 'p')
 		{
-			ft_direct_dot(info);
-			return (info->len);
+			ft_direct_dot(inf);
+			return (inf->len);
 		}
-		ft_parse_precision(info);
-		ft_parse_specifiers(info);
-		ft_send_displays(info);
-		return (info->len);
+		ft_parse_precision(inf);
+		ft_parse_specifiers(inf);
+		ft_send_displays(inf);
+		return (inf->len);
 	}
-	ft_sparks(info);
-	if (info->j == 0)
-		ft_jzero(info);
-	return (info->len);
+	ft_sparks(inf);
+	if (inf->j == 0)
+		ft_jzero(inf);
+	return (inf->len);
 }

@@ -6,25 +6,25 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:11 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_struct	*ft_initialize(t_struct *info)
+t_stc	*ft_initialize(t_stc *inf)
 {
-	info->len = 0;
-	info->i = 0;
-	info->j = 0;
-	info->k = 0;
-	info->l = 0;
-	info->n = 0;
-	info->o = 0;
-	info->p = 0;
-	info->specifiers = "scdiuxXpn%";
-	info->converters = "-+ 0#.*";
-	info->f_t = (char *)info->fmt;
-	info->f_copy = (char *)info->fmt;
-	return (info);
+	inf->len = 0;
+	inf->i = 0;
+	inf->j = 0;
+	inf->k = 0;
+	inf->l = 0;
+	inf->n = 0;
+	inf->o = 0;
+	inf->p = 0;
+	inf->specifiers = "scdiuxXpn%";
+	inf->converters = "-+ 0#.*";
+	inf->f_t = (char *)inf->fmt;
+	inf->f_copy = (char *)inf->fmt;
+	return (inf);
 }
