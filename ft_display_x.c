@@ -6,13 +6,13 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:20:53 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/13 10:04:17 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 12:31:25 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void			ft_print_leading_zero(uintmax_t num, char hash, char x)
+static void			ft_ptr_start(uintmax_t num, char hash, char x)
 {
 	if (num)
 	{
@@ -52,7 +52,7 @@ static t_stc		*ft_do_x(t_stc *inf, uintmax_t num, char *str)
 	inf->len += (n_b <= inf->widht) ? inf->widht : n_b;
 	if (!left)
 		ft_display_widht(inf, ' ', inf->widht - n_b, 0);
-	ft_print_leading_zero(num, inf->convert[4], inf->specifiers_flags);
+	ft_ptr_start(num, inf->convert[4], inf->specifiers_flags);
 	ft_display_widht(inf, '0', inf->precision - n_w, 0);
 	ft_putstr(str);
 	if (left)

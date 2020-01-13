@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kevin <kevin@student.42.fr>                +#+  +:+       +#+         #
+#    By: kparis <kparis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 15:12:30 by kevin             #+#    #+#              #
-#    Updated: 2020/01/10 15:12:32 by kevin            ###   ########.fr        #
+#    Updated: 2020/01/13 11:43:17 by kparis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC =	./ft_display_.c \
 		./ft_parser.c \
 		./ft_printf.c \
 		./ft_send_displays.c \
-		./ft_treatments.c \
+		./ft_treatment.c \
 		./ft_reinitialize.c \
 		./ft_prec_and_width.c \
 

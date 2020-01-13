@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:52 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 11:43:17 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_parsers(t_stc *inf)
 		if (inf->f_copy[inf->i] == '%')
 		{
 			ft_reinitialize(inf);
-			ft_treatments(inf);
+			ft_treatment(inf);
 		}
 		else
 		{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_treatments.c                                    :+:      :+:    :+:   */
+/*   ft_treatment.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:27:03 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 11:42:42 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_stc	*ft_direct_dot(t_stc *inf)
 	return (inf);
 }
 
-static t_stc	*ft_sparks(t_stc *inf)
+static t_stc	*ft_star(t_stc *inf)
 {
 	if (inf->f_t[inf->i + 1] == '.' && inf->f_t[inf->i] == '*')
 	{
@@ -51,7 +51,7 @@ static t_stc	*ft_jzero(t_stc *inf)
 	return (inf);
 }
 
-int				ft_treatments(t_stc *inf)
+int				ft_treatment(t_stc *inf)
 {
 	inf->i++;
 	if (inf->f_t[inf->i] == '.' && inf->f_t[inf->i + 1] != '*')
@@ -69,7 +69,7 @@ int				ft_treatments(t_stc *inf)
 		ft_send_displays(inf);
 		return (inf->len);
 	}
-	ft_sparks(inf);
+	ft_star(inf);
 	if (inf->j == 0)
 		ft_jzero(inf);
 	return (inf->len);

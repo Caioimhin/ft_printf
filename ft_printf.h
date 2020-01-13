@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:26:32 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 10:00:14 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/13 11:43:17 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_stc			*ft_reinitialize(t_stc *inf);
 t_stc			*ft_parse_converts(t_stc *inf);
 t_stc			*ft_parse_converts2(t_stc *inf);
 t_stc			*ft_parse_specifiers(t_stc *inf);
-int				ft_treatments(t_stc *inf);
+int				ft_treatment(t_stc *inf);
 t_stc			*ft_send_displays(t_stc *inf);
 t_stc			*ft_parse_widht(t_stc *inf);
 t_stc			*ft_display_c(t_stc *inf);
