@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putnbrmax_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2019/11/09 13:08:32 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/13 09:45:36 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-int		ft_printf(const char *fmt, ...)
+void	ft_putnbrmax_fd(intmax_t n, int fd)
 {
-	t_struct *info;
-
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
+	if (n == -9223372036854775807 - 1)
 	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
+		ft_putstr_fd("-9223372036854775808", fd);
+		return ;
 	}
-	free(info);
-	return (info->len);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbrmax_fd(n * (-1), fd);
+	}
+	else if (n >= 0 && n < 10)
+		ft_putchar_fd(n + '0', fd);
+	else
+	{
+		ft_putnbrmax_fd(n / 10, fd);
+		ft_putnbrmax_fd(n % 10, fd);
+	}
 }

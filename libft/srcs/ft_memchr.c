@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2019/10/10 13:10:16 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/13 09:45:36 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-int		ft_printf(const char *fmt, ...)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_struct *info;
+	char	*ptr;
+	char	*m;
+	size_t	i;
 
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
+	ptr = 0;
+	m = (char*)s;
+	i = 0;
+	while (i < n)
 	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
+		if (m[i] == ((char)c))
+		{
+			ptr = &m[i];
+			return (ptr);
+		}
+		i++;
 	}
-	free(info);
-	return (info->len);
+	return (0);
 }

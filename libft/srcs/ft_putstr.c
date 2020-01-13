@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2019/10/31 11:30:08 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/13 09:45:36 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-int		ft_printf(const char *fmt, ...)
+void	ft_putstr(char *s)
 {
-	t_struct *info;
-
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
-	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
-	}
-	free(info);
-	return (info->len);
+	if (s == NULL)
+		return ;
+	write(1, s, ft_strlen(s));
 }

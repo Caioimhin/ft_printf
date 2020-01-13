@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/10 15:25:52 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/10 15:55:49 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include "ft_printf.h"
 
-int		ft_printf(const char *fmt, ...)
+int		ft_parsers(t_struct *info)
 {
-	t_struct *info;
-
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
+	if (ft_strcmp(info->f_copy, "%") == 0)
+		return (0);
+	while (info->f_copy[info->i] != '\0')
 	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
+		if (info->f_copy[info->i] == '%')
+		{
+			ft_reinitialize(info);
+			ft_treatments(info);
+		}
+		else
+		{
+			write(1, &info->f_copy[info->i], 1);
+			info->len++;
+		}
+		info->i++;
 	}
-	free(info);
 	return (info->len);
 }

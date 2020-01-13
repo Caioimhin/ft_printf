@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2019/10/07 18:00:44 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/13 09:44:57 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-int		ft_printf(const char *fmt, ...)
+void	ft_bzero(void *s, size_t n)
 {
-	t_struct *info;
+	char			*m;
+	unsigned int	i;
 
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
+	m = (char*)s;
+	i = 0;
+	while (i < n)
 	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
+		m[i] = '\0';
+		i++;
 	}
-	free(info);
-	return (info->len);
 }

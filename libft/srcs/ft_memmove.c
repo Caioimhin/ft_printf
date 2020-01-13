@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2019/10/08 14:20:15 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/13 09:45:36 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-int		ft_printf(const char *fmt, ...)
+void		*ft_memmove(void *dst, const void *src, size_t len)
 {
-	t_struct *info;
+	char *m;
+	char *l;
 
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
+	if ((dst == '\0') && (src == '\0'))
+		return (0);
+	m = (char *)dst;
+	l = (char *)src;
+	if (dst > src)
 	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
+		while (len > 0)
+		{
+			m[len - 1] = l[len - 1];
+			len--;
+		}
+		return (dst);
 	}
-	free(info);
-	return (info->len);
+	else
+		while (len > 0)
+		{
+			*m = *l;
+			m++;
+			l++;
+			len--;
+		}
+	return (dst);
 }

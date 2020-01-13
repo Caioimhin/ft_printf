@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_reinitialize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/10 15:26:41 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/10 15:55:49 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
+
 #include "ft_printf.h"
 
-int		ft_printf(const char *fmt, ...)
+t_struct	*ft_reinitialize(t_struct *info)
 {
-	t_struct *info;
-
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
-	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
-	}
-	free(info);
-	return (info->len);
+	info->specifiers_flags = '\0';
+	info->convert[0] = '\0';
+	info->convert[1] = '\0';
+	info->convert[2] = '\0';
+	info->convert[3] = '\0';
+	info->convert[4] = '\0';
+	info->convert[5] = '\0';
+	info->convert[6] = '\0';
+	info->precision = -1;
+	info->widht = 0;
+	return (info);
 }

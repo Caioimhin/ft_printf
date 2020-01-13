@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prec_and_width.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:26:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/10 17:11:10 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/10 15:25:59 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/10 15:55:49 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include "ft_printf.h"
 
-int		ft_printf(const char *fmt, ...)
+t_struct	*ft_prec_and_width(t_struct *info, intmax_t num, char sign_place)
 {
-	t_struct *info;
-
-	if (!(info = (t_struct*)malloc(sizeof(t_struct))))
-		return (-1);
-	info->fmt = fmt;
-	info = ft_initialize(info);
-	if (fmt)
+	(sign_place) ? write(1, &sign_place, 1) : 0;
+	if (info->convert[5] == '*' && info->convert[6] == '.' && info->precision == 0)
 	{
-		va_start(info->arg, fmt);
-		info->len = ft_parsers(info);
-		va_end(info->arg);
+		ft_display_widht(info, '0', info->widht -
+				(ft_strlen(ft_itoa(num))), 0);
+		if (num != (-2147483648 - 1))
+			ft_putnbrmax_fd(num, 1);
+		else if ((info->len += 9) > 0)
+			write(1, "2147483648", 10);
+		info->m = 1;
 	}
-	free(info);
-	return (info->len);
+	return (info);
 }

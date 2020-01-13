@@ -5,67 +5,81 @@
 #                                                     +:+ +:+         +:+      #
 #    By: kparis <kparis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/09 15:54:25 by kparis            #+#    #+#              #
-#    Updated: 2019/10/24 18:04:11 by kparis           ###   ########.fr        #
+#    Created: 2019/10/10 10:45:04 by kparis            #+#    #+#              #
+#    Updated: 2020/01/13 09:45:36 by kparis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+SRC =	./srcs/ft_atoi.c \
+		./srcs/ft_bzero.c \
+		./srcs/ft_isalnum.c \
+		./srcs/ft_isalpha.c \
+		./srcs/ft_isascii.c \
+		./srcs/ft_isdigit.c \
+		./srcs/ft_isprint.c \
+		./srcs/ft_memccpy.c \
+		./srcs/ft_memchr.c \
+		./srcs/ft_memcmp.c \
+		./srcs/ft_memcpy.c \
+		./srcs/ft_memmove.c \
+		./srcs/ft_memset.c \
+		./srcs/ft_strchr.c \
+		./srcs/ft_strdup.c \
+		./srcs/ft_strndup.c \
+		./srcs/ft_strjoin.c \
+		./srcs/ft_strlcpy.c \
+		./srcs/ft_strlen.c \
+		./srcs/ft_strcmp.c \
+		./srcs/ft_strncmp.c \
+		./srcs/ft_strnstr.c \
+		./srcs/ft_strrchr.c \
+		./srcs/ft_substr.c \
+		./srcs/ft_tolower.c \
+		./srcs/ft_toupper.c \
+		./srcs/ft_strlcat.c \
+		./srcs/ft_calloc.c \
+		./srcs/ft_split.c \
+		./srcs/ft_itoa.c \
+		./srcs/ft_itoa_base.c \
+		./srcs/ft_strmapi.c \
+		./srcs/ft_putchar.c \
+		./srcs/ft_putchar_fd.c \
+		./srcs/ft_putstr.c \
+		./srcs/ft_putstr_fd.c \
+		./srcs/ft_putendl.c \
+		./srcs/ft_putendl_fd.c \
+		./srcs/ft_putnbr.c \
+		./srcs/ft_putnbr_fd.c \
+		./srcs/ft_putnbrmax_fd.c \
+		./srcs/ft_strtrim.c \
+		./srcs/ft_lstnew_bonus.c \
+		./srcs/ft_lstsize_bonus.c \
+		./srcs/ft_lstdelone_bonus.c \
+		./srcs/ft_putnbrumax_fd.c \
 
-SRC =	ft_atoi.c \
-		ft_bzero.c \
-		ft_calloc.c \
-		ft_isalnum.c \
-		ft_isalpha.c \
-		ft_isascii.c \
-		ft_isdigit.c \
-		ft_isprint.c \
-		ft_memccpy.c \
-		ft_memchr.c \
-		ft_memcmp.c \
-		ft_memcpy.c \
-		ft_memmove.c \
-		ft_memset.c \
-		ft_strchr.c \
-		ft_strdup.c \
-		ft_strlcat.c \
-		ft_strlcpy.c \
-		ft_strlen.c \
-		ft_strncmp.c \
-		ft_strnstr.c \
-		ft_strrchr.c \
-		ft_tolower.c \
-		ft_toupper.c \
-		ft_substr.c \
-		ft_strjoin.c \
-		ft_strtrim.c \
-		ft_split.c \
-		ft_strmapi.c \
-		ft_itoa.c \
-		ft_putchar_fd.c \
-		ft_putstr_fd.c \
-		ft_putendl_fd.c \
-		ft_putnbr_fd.c \
-		ft_putchar.c \
-		ft_putstr.c \
-		ft_putnbr.c \
-		ft_recursive_power.c \
-		ft_putnbr_base.c \
-		ft_putunbr.c \
-		ft_nbrlen.c \
-		ft_unsigned_itoa.c
 
 OBJ = $(SRC:.c=.o)
-CFLAGS += -Wall -Wextra -Werror -I./
+
+CFLAGS = -Wall -Wextra -Werror
+NAME = libft.a
+
 CC = gcc
-.c.o:
+
+.c.o::
 		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
-$(NAME):	$(OBJ)
+
+$(NAME)::	$(OBJ)
 			ar -rc $(NAME) $(OBJ)
+
 all:		$(NAME)
+
 clean:
 			rm -f $(OBJ)
+
 fclean:		clean
 			rm -f $(NAME)
+
 re:		fclean all
+
 .PHONY:		all clean fclean re
+

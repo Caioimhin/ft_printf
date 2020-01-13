@@ -3,59 +3,70 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kparis <kparis@student.42.fr>              +#+  +:+       +#+         #
+#    By: kevin <kevin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/09 15:54:25 by kparis            #+#    #+#              #
-#    Updated: 2019/11/07 12:38:45 by kparis           ###   ########.fr        #
+#    Created: 2020/01/10 15:12:30 by kevin             #+#    #+#              #
+#    Updated: 2020/01/10 15:12:32 by kevin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
+LIBFT_A = libft.a
 
-SRC =	ft_printf.c \
-		ft_process_percent.c \
-		ft_process_bigx.c \
-		ft_process_x.c \
-		ft_process_d.c \
-		ft_process_p.c \
-		ft_process_s.c \
-		ft_process_u.c \
-		ft_process_c.c \
-		ft_process_star.c \
-		ft_process_basics.c \
-		ft_trunc_str.c \
-		ft_check_useless_0.c \
-		ft_remove_doubledash.c \
-		ft_process_dot.c \
-		ft_display_str.c \
-		ft_replace_flags.c \
-		ft_process_dash.c \
-		ft_process_num.c
+LIBFT_H = -I libft/
 
-LIBFT = libft
+LIB_DIR = libft/
+
+SRC =	./ft_display_.c \
+		./ft_display_c.c \
+		./ft_display_d.c \
+		./ft_display_p.c \
+		./ft_display_s.c \
+		./ft_display_u.c \
+		./ft_display_widht.c \
+		./ft_display_x.c \
+		./ft_initialize.c \
+		./ft_parse_converts.c \
+		./ft_parse_precision.c \
+		./ft_parse_specifiers.c \
+		./ft_parse_widht.c \
+		./ft_parser.c \
+		./ft_printf.c \
+		./ft_send_displays.c \
+		./ft_treatments.c \
+		./ft_reinitialize.c \
+		./ft_prec_and_width.c \
 
 OBJ = $(SRC:.c=.o)
-OBJTEST = $(SRC:.testc=.o)
-CFLAGS += -Wall -Wextra -Werror -I./
+
+CFLAGS = -Wall -Wextra -Werror -I./libft
+
 CC = gcc
+
 .c.o:
-		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
-.testc.o:
-		$(CC) -c $< -o $(<:.c=.o)
+			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+
 $(NAME):	$(OBJ)
-			make -C ${LIBFT}
+			@echo LIBFT START
+			make -C $(LIB_DIR)
+			@echo Copying $(LIBFT_A) to root
+			cp $(LIB_DIR)$(LIBFT_A) .
+			mv $(LIBFT_A) $(NAME)
 			ar -rc $(NAME) $(OBJ)
+			ranlib $(NAME)
+
 all:		$(NAME)
-test:
-			make -C ${LIBFT}
-			ar -rc $(NAME) $(OBJTEST)
-all:		$(NAME)
+
 clean:
 			rm -f $(OBJ)
-			rm -f a.out
-			make clean -C ${LIBFT}
+			make -C $(LIB_DIR) clean
+
 fclean:		clean
 			rm -f $(NAME)
-			make fclean -C ${LIBFT}
-re:		fclean all
+			make -C $(LIB_DIR) fclean
+
+re:			fclean all
+
+bonus:		all
+
 .PHONY:		all clean fclean re
