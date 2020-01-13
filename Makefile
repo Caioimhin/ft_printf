@@ -6,7 +6,7 @@
 #    By: kparis <kparis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 15:12:30 by kevin             #+#    #+#              #
-#    Updated: 2020/01/13 11:43:17 by kparis           ###   ########.fr        #
+#    Updated: 2020/01/13 12:58:01 by kparis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC =	./ft_display_.c \
 		./ft_display_p.c \
 		./ft_display_s.c \
 		./ft_display_u.c \
-		./ft_display_widht.c \
+		./ft_display.c \
 		./ft_display_x.c \
 		./ft_initialize.c \
 		./ft_parse_converts.c \
