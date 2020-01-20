@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:20:15 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/13 10:02:00 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/20 15:52:39 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 static t_stc	*ft_dos(t_stc *inf, char *s, int len)
 {
 	if (inf->convert[3] == '0' && inf->convert[0] != '-')
-		ft_display_widht(inf, '0', inf->widht - len, 1);
-	else if (inf->convert[6] == '.' && inf->precision < inf->widht)
+		ft_display_width(inf, '0', inf->width - len, 1);
+	else if (inf->convert[6] == '.' && inf->precision < inf->width)
 	{
 		ft_putstr(s);
 		if (inf->convert[0] == '-')
-			ft_display_widht(inf, ' ', inf->widht - len, 1);
+			ft_display_width(inf, ' ', inf->width - len, 1);
 		if (inf->precision > -1 || inf->precision == -1)
 			free(s);
 		return (inf);
 	}
 	else if (inf->convert[0] != '-')
-		ft_display_widht(inf, ' ', inf->widht - len, 1);
+		ft_display_width(inf, ' ', inf->width - len, 1);
 	ft_putstr(s);
 	if (inf->convert[0] == '-')
-		ft_display_widht(inf, ' ', inf->widht - len, 1);
+		ft_display_width(inf, ' ', inf->width - len, 1);
 	if (inf->precision > -1 || inf->precision == -1)
 		free(s);
 	return (inf);

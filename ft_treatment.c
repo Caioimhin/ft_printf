@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:27:03 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 12:41:20 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/20 15:57:42 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ static t_stc	*ft_star(t_stc *inf)
 			inf->f_t[inf->i - 1] == 'u' || inf->f_t[inf->i - 1] == 'x' ||
 			inf->f_t[inf->i - 1] == 'X' || inf->f_t[inf->i - 1] == 'p' ||
 			inf->f_t[inf->i - 1] == 's') && inf->precision > 0)
-		{
 			inf->i--;
-			ft_display_widht(inf, ' ', inf->widht - inf->precision, 1);
-		}
 		ft_parse_specifiers(inf);
 		ft_send_displays(inf);
 	}

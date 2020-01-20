@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:26:32 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 11:43:17 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/20 15:52:39 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct	s_stc
 	char		specifiers_flags;
 	char		*converters;
 	char		convert[7];
-	long int	widht;
+	long int	width;
 	long int	precision;
 	int			j;
 	int			k;
@@ -53,7 +53,7 @@ t_stc			*ft_parse_widht(t_stc *inf);
 t_stc			*ft_display_c(t_stc *inf);
 t_stc			*ft_display_d(t_stc *inf);
 t_stc			*ft_display_u(t_stc *inf);
-int				ft_display_widht(t_stc *inf, char c, int len, int update_len);
+int				ft_display_width(t_stc *inf, char c, int len, int update_len);
 t_stc			*ft_display_s(t_stc *inf);
 t_stc			*ft_display_x(t_stc *inf);
 t_stc			*ft_display_p(t_stc *inf);

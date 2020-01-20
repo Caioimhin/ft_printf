@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:26 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/20 15:34:31 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static t_stc	*ft_dot(t_stc *inf)
 		ft_parse_specifiers(inf);
 	(inf->convert[0] == '-' && inf->f_t[inf->i - 1] != '.') ? inf->i -= 2 : 0;
 	(inf->convert[0] != '-' && inf->f_t[inf->i - 1] != '.') ? inf->i -= 1 : 0;
-	(inf->f_t[inf->i] == '*') ? inf->precision = inf->widht : 0;
+	(inf->f_t[inf->i] == '*') ? inf->precision = inf->width : 0;
 	(inf->f_t[inf->i] == '*') ? inf->i++ : 0;
-	(inf->convert[5] == '*' && inf->n == 1) ? inf->precision = inf->widht : 0;
+	(inf->convert[5] == '*' && inf->n == 1) ? inf->precision = inf->width : 0;
 	if (inf->convert[0] != '-' && inf->convert[5] == '*' &&
 			(inf->f_t[inf->i] >= '0' && inf->f_t[inf->i] <= '9'))
 	{
@@ -91,7 +91,7 @@ t_stc			*ft_parse_precision(t_stc *inf)
 		ft_dot(inf);
 		ft_num(inf);
 	}
-	if (inf->precision == 0 && inf->widht < 0)
+	if (inf->precision == 0 && inf->width < 0)
 		inf->precision = (-1);
 	if (inf->p == 1)
 		inf->precision = va_arg(inf->arg, int);

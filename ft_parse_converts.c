@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:18 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 11:26:48 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/20 14:55:32 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static t_stc	*ft_parse_stardotstar(t_stc *inf)
 {
-	if (inf->f_t[inf->i] == '.' && (!ft_isdigit(inf->f_t[inf->i + 1])) &&
-			inf->f_t[inf->i - 1] == '*')
+	if (inf->f_t[inf->i] == '.' && (inf->f_t[inf->i + 1] == '*')
+			&& inf->f_t[inf->i - 1] == '*')
 		inf->p = 1;
 	if (inf->f_t[inf->i] == '.' && inf->f_t[inf->i + 1] == '*' &&
 			inf->convert[5] != '*')

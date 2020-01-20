@@ -6,7 +6,7 @@
 #    By: kparis <kparis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 15:12:30 by kevin             #+#    #+#              #
-#    Updated: 2020/01/13 12:58:01 by kparis           ###   ########.fr        #
+#    Updated: 2020/01/17 14:45:13 by kparis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ all:		$(NAME)
 clean:
 			rm -f $(OBJ)
 			make -C $(LIB_DIR) clean
+			rm -rf a.out a.out.dSYM
 
 fclean:		clean
 			rm -f $(NAME)

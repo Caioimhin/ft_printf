@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:26:41 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 10:04:32 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/20 15:07:44 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ t_stc	*ft_reinitialize(t_stc *inf)
 	inf->convert[5] = '\0';
 	inf->convert[6] = '\0';
 	inf->precision = -1;
-	inf->widht = 0;
+	inf->width = 0;
 	return (inf);
 }

@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:37:04 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/20 15:52:39 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ t_stc			*ft_display_c(t_stc *inf)
 		inf->i--;
 	c = (char)va_arg(inf->arg, int);
 	if (inf->convert[3] == '0' && inf->convert[0] != '-')
-		ft_display_widht(inf, '0', inf->widht - 1, 1);
+		ft_display_width(inf, '0', inf->width - 1, 1);
 	else if (inf->convert[0] != '-')
-		ft_display_widht(inf, ' ', inf->widht - 1, 1);
+		ft_display_width(inf, ' ', inf->width - 1, 1);
 	ft_putchar(c);
 	inf->len++;
 	if (inf->convert[0] == '-')
-		ft_display_widht(inf, ' ', inf->widht - 1, 1);
+		ft_display_width(inf, ' ', inf->width - 1, 1);
 	return (inf);
 }
