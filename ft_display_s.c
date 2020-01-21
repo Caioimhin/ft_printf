@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:20:15 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/20 15:52:39 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/21 14:42:51 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_stc	*ft_dos(t_stc *inf, char *s, int len)
 			free(s);
 		return (inf);
 	}
-	else if (inf->convert[0] != '-')
+	else if (inf->convert[0] != '-' && inf->n != 1)
 		ft_display_width(inf, ' ', inf->width - len, 1);
 	ft_putstr(s);
 	if (inf->convert[0] == '-')
