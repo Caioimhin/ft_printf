@@ -5,59 +5,88 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:20:15 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/22 11:43:40 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/22 16:19:18 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/22 17:27:13 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_stc	*ft_dos(t_stc *inf, char *s, int len)
+int		ft_sprecision(char *str, int len, int precision, int mod)
 {
-
-	if (inf->convert[3] == '0' && inf->convert[0] != '-')
-		ft_display_width(inf, '0', inf->width - len, 1);
-	else if (inf->convert[6] == '.' && inf->precision < inf->width)
-	{
-		if (inf->width > 0 && inf->convert[0] != '-')
-			ft_display_width(inf, ' ', inf->width - len, 1);
-		ft_putstr(s);
-		if (inf->convert[0] == '-')
-			ft_display_width(inf, ' ', inf->width - len, 1);
-		if (inf->precision > -1 || inf->precision == -1)
-			free(s);
-		return (inf);
-	}
-	else if (inf->convert[0] != '-' && inf->n != 1)
-		ft_display_width(inf, ' ', inf->width - len, 1);
-	ft_putstr(s);
-	if (inf->convert[0] == '-')
-		ft_display_width(inf, ' ', inf->width - len, 1);
-	if (inf->precision > -1 || inf->precision == -1)
-		free(s);
-	return (inf);
-}
-
-t_stc			*ft_display_s(t_stc *inf)
-{
-	char		*s;
-	int			i;
-	int			len;
+	int	i;
 
 	i = 0;
-	if (inf->f_t[inf->i - 1] == 's')
-		inf->i--;
-	s = va_arg(inf->arg, char *);
-	if (inf->precision > -1 && s)
-		s = ft_strndup(s, inf->precision);
-	else if (inf->precision == -1 && s)
-		s = ft_strdup(s);
-	else if (inf->precision > -1 && !s)
-		s = ft_strndup("(null)", inf->precision);
-	else if (inf->precision == -1 && !s)
-		s = ft_strdup("(null)");
-	len = ft_strlen(s);
-	inf->len += len;
-	ft_dos(inf, s, len);
-	return (inf);
+	if (precision != -1 && len <= precision)
+		while (str[i])
+		{
+			if (mod)
+				write(1, &str[i], 1);
+			i++;
+		}
+	else if (precision != -1 && len > precision)
+		while (i < precision)
+		{
+			if (mod)
+				write(1, &str[i], 1);
+			i++;
+		}
+	else
+		while (str[i])
+		{
+			if (mod)
+				write(1, &str[i], 1);
+			i++;
+		}
+	return (i);
+}
+
+int		ft_swidth(int zero, int width)
+{
+	int ret;
+
+	ret = 0;
+	if (zero)
+		ret += ft_dispalay_width(width, '0');
+	else
+		ret += ft_dispalay_width(width, ' ');
+	return (ret);
+}
+
+char	*ft_special_case(char *str, t_tab tab)
+{
+	if (!str && tab.precision)
+		str = ft_strdup("(null)");
+	else if (!str && !tab.precision)
+		str = ft_strdup("");
+	return (str);
+}
+
+int		ft_display_s(t_tab tab, va_list args)
+{
+	char	*str;
+	int		len;
+	int		ret;
+	int		howm;
+
+	ret = 0;
+	str = va_arg(args, char *);
+	str = ft_special_case(str, tab);
+	len = ft_strlen(str);
+	howm = ft_sprecision(str, len, tab.precision, 0);
+	if (tab.minus && tab.width > howm)
+	{
+		ret += ft_sprecision(str, len, tab.precision, 1);
+		ret += ft_swidth(tab.zero, (tab.width - howm));
+	}
+	else if (!tab.minus && tab.width > howm)
+	{
+		ret += ft_swidth(tab.zero, (tab.width - howm));
+		ret += ft_sprecision(str, len, tab.precision, 1);
+	}
+	else
+		ret += ft_sprecision(str, len, tab.precision, 1);
+	if (ft_strcmp(str, "(null)") == 1 || ft_strcmp(str, "") == 1)
+		free(str);
+	return (ret);
 }

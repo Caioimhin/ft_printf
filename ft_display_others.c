@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_display.c                                       :+:      :+:    :+:   */
+/*   ft_display_others.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:20:37 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/20 15:52:39 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/22 16:19:13 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/22 16:19:49 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_display_width(t_stc *inf, char c, int len, int update_len)
+int	ft_display_others(t_tab tab)
 {
-	char	*str;
+	int					ret;
 
-	if (len > 0)
+	ret = 0;
+	if (tab.minus)
 	{
-		if (update_len)
-			inf->len += len;
-		if (!(str = malloc(sizeof(char *) * len + 1)))
-			return (-1);
-		ft_memset(str, c, len);
-		write(1, str, len);
-		free(str);
+		ft_putchar_fd('%', 1);
+		if (tab.zero)
+			ret += ft_dispalay_width(tab.width - 1, '0');
+		else
+			ret += ft_dispalay_width(tab.width - 1, ' ');
 	}
-	return (inf->len);
+	else if (!tab.minus)
+	{
+		if (tab.zero)
+			ret += ft_dispalay_width(tab.width - 1, '0');
+		else
+			ret += ft_dispalay_width(tab.width - 1, ' ');
+		ft_putchar_fd('%', 1);
+	}
+	return (ret + 1);
 }

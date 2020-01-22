@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_specifiers.c                              :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:25:37 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 09:59:57 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/22 16:21:47 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/22 16:21:49 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-t_stc	*ft_parse_specifiers(t_stc *inf)
+int		ft_isupper(int c)
 {
-	size_t	i;
-
-	i = 0;
-	while (inf->specifiers[i] != '\0')
-	{
-		if (inf->specifiers[i] == inf->f_t[inf->i])
-			inf->specifiers_flags = inf->specifiers[i];
-		i++;
-	}
-	return (inf);
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	else
+		return (0);
 }

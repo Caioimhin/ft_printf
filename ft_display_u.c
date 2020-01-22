@@ -5,97 +5,76 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:20:25 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/22 12:26:04 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/22 16:19:19 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/22 16:19:43 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		ft_obtain_ten(uintmax_t num)
+int	ft_unsign_width(t_tab tab, int len)
 {
-	int ten;
+	int	ret;
 
-	ten = 1;
-	while ((num /= 10) > 0)
-		ten++;
-	return (ten);
+	ret = 0;
+	if (tab.zero && !tab.minus && tab.precision < 0)
+		ret += ft_dispalay_width(tab.width - len, '0');
+	else if (tab.precision >= len)
+		ret += ft_dispalay_width(tab.width - tab.precision, ' ');
+	else
+		ret += ft_dispalay_width(tab.width - len, ' ');
+	return (ret);
 }
 
-static t_stc	*ft_do_u(t_stc *inf, uintmax_t num, int num_width)
+int	ft_unsign_precision(int precision, int len)
 {
-	int			not_blank;
-	int			left;
+	int	i;
 
-	not_blank = num_width;
-	left = 0;
-	(inf->convert[0] == '-') ? left = 1 : 0;
-	if (num_width <= inf->precision)
-		not_blank = inf->precision;
-	inf->len += (not_blank <= inf->width) ? inf->width : not_blank;
-	if (!left)
-		ft_display_width(inf, ' ', inf->width - not_blank, 0);
-	ft_display_width(inf, '0', inf->precision - num_width, 0);
-	ft_putnbrumax_fd(num, 1);
-	if (left)
-		ft_display_width(inf, ' ', inf->width - not_blank, 0);
-	return (inf);
+	i = 0;
+	if (precision)
+		while (i < precision - len)
+		{
+			write(1, "0", 1);
+			i++;
+		}
+	return (i);
 }
 
-static t_stc	*ft_space(t_stc *inf)
+int	ft_unsign_minus(t_tab tab, int len, char *str)
 {
-	if (inf->convert[0] != '-' && inf->width == 0)
-		ft_display_width(inf, ' ', inf->width, 1);
-	if (inf->convert[0] != '-' && inf->width != 0 && inf->precision > 0)
+	int	ret;
+
+	ret = 0;
+	if (tab.minus)
 	{
-		ft_display_width(inf, ' ', inf->width - 1, 1);
-		ft_putchar('0');
+		ret += ft_unsign_precision(tab.precision, len);
+		ret += ft_putstr_fd(str, 1);
+		ret += ft_unsign_width(tab, len);
 	}
-	if (inf->convert[0] == '-' && inf->width != 0 && inf->precision == -1)
+	else if (!tab.minus)
 	{
-		ft_putchar('0');
-		ft_display_width(inf, ' ', inf->width - 1, 1);
-		return (inf);
+		ret += ft_unsign_width(tab, len);
+		ret += ft_unsign_precision(tab.precision, len);
+		ret += ft_putstr_fd(str, 1);
 	}
-	if (inf->convert[0] == '-')
-	{
-		inf->i--;
-		ft_display_width(inf, ' ', inf->width, 1);
-	}
-	if (inf->precision == 0 && inf->width > 0 && inf->convert[0] != '-')
-	{
-		ft_display_width(inf, ' ', inf->width, 0);
-		return (inf);
-	}
-	return (inf);
+	return (ret);
 }
 
-t_stc			*ft_display_u(t_stc *inf)
+int	ft_display_u(t_tab tab, va_list args)
 {
-	uintmax_t	num;
-	int			num_width;
+	char	*str;
+	int		len;
+	int		ret;
 
-	num = (unsigned int)va_arg(inf->arg, unsigned int);
-	if (num == 0 && inf->precision == -1 && inf->convert[6] != '.' &&
-		inf->width <= 0)
+	str = ft_utoa(va_arg(args, unsigned int));
+	len = ft_strlen(str);
+	ret = 0;
+	if (tab.precision == 0 && *str == '0')
 	{
-		ft_putchar('0');
-		return (inf);
+		ret += ft_dispalay_width(tab.width, ' ');
+		return (ret);
 	}
-	num_width = ft_obtain_ten(num);
-	if ((num == 0 && inf->precision == -1 && inf->width <= 0) ||
-		(num == 0 && inf->precision == 0))
-	{
-		if (inf->f_t[inf->i - 1] == 'u' && inf->convert[0] == '\0'
-			&& inf->convert[3] == '\0')
-			inf->i--;
-		(inf->f_t[inf->i] == 'u' && inf->convert[0] == '-') ? inf->i++ : 0;
-		ft_space(inf);
-		return (inf);
-	}
-	if (inf->convert[3] == '0' && inf->precision == -1 && !inf->convert[0])
-		inf->precision = inf->width;
-	ft_do_u(inf, num, num_width);
-	inf->i--;
-	return (inf);
+	ret += ft_unsign_minus(tab, len, str);
+	free(str);
+	return (ret);
 }

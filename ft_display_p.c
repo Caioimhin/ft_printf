@@ -5,94 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:20:06 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/20 15:52:39 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/22 16:19:15 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/22 16:19:47 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static uintmax_t	ft_get_num(t_stc *inf)
+int	ft_pminus(t_tab tab, int len, char *str)
 {
-	uintmax_t	num;
+	int	ret;
 
-	num = (unsigned long)(va_arg(inf->arg, unsigned long int));
-	num = (uintmax_t)num;
-	return (num);
+	ret = 0;
+	if (tab.minus)
+	{
+		ret += ft_putstr_fd("0x", 1);
+		ret += ft_putstr_fd(str, 1);
+		ret += ft_dispalay_width(tab.width - (len + 2), ' ');
+	}
+	else if (!tab.minus)
+	{
+		ret += ft_dispalay_width(tab.width - (len + 2), ' ');
+		ret += ft_putstr_fd("0x", 1);
+		ret += ft_putstr_fd(str, 1);
+	}
+	return (ret);
 }
 
-static t_stc		*ft_do_p(t_stc *inf, char *str, int left)
+int	ft_display_p(t_tab tab, va_list args)
 {
-	int			not_blank;
-	int			num_width;
+	char				*str;
+	int					len;
+	int					ret;
+	unsigned long long	nb;
 
-	num_width = ft_strlen(str) + 2;
-	not_blank = num_width;
-	inf->len += (not_blank <= inf->width) ? inf->width : not_blank;
-	if (!left)
-		ft_display_width(inf, ' ', inf->width - not_blank, 0);
-	write(1, "0x", 2);
-	ft_display_width(inf, '0', (inf->precision - num_width) + 2, 1);
-	ft_putstr(str);
-	if (left)
-		ft_display_width(inf, ' ', inf->width - not_blank, 0);
+	nb = va_arg(args, unsigned long long);
+	if (!nb)
+		str = ft_strdup("0");
+	else
+		str = ft_itoa_base(nb, 16, 'a');
+	len = ft_strlen(str);
+	ret = 0;
+	ret += ft_pminus(tab, len, str);
 	free(str);
-	return (inf);
-}
-
-static t_stc		*ft_numzero(t_stc *inf, uintmax_t num, char *str)
-{
-	int			num_width;
-
-	num_width = ft_strlen(str) + 2;
-	if (num == 0)
-	{
-		if (inf->precision == -1 && inf->convert[3] != '0')
-			ft_display_width(inf, ' ', (inf->width - num_width), 0);
-		if (inf->precision >= 0 || (inf->precision == -1 &&
-			((inf->convert[3] == '0') || (inf->convert[6] == '.'))))
-		{
-			if (inf->precision == 0)
-				ft_display_width(inf, ' ', (inf->width - 2), 0);
-			write(1, "0x", 2);
-			if (inf->precision > 0)
-				ft_display_width(inf, '0', inf->precision, 0);
-			inf->l = 1;
-			return (inf);
-		}
-		write(1, "0x0", 3);
-		inf->len += 3;
-		inf->l = 1;
-		return (inf);
-	}
-	return (inf);
-}
-
-t_stc				*ft_display_p(t_stc *inf)
-{
-	char		*str;
-	uintmax_t	num;
-	int			left;
-
-	left = 0;
-	num = ft_get_num(inf);
-	str = ft_itoa_base(num, 16, 'a');
-	if (inf->f_t[inf->i - 1] == 'p' && inf->convert[0] == '\0'
-		&& inf->convert[3] == '\0')
-		inf->i--;
-	ft_numzero(inf, num, str);
-	if (inf->l == 1)
-	{
-		free(str);
-		return (inf);
-	}
-	if (inf->convert[0] == '-')
-		left = 1;
-	if (inf->convert[3] == '0' && inf->precision == -1 && !inf->convert[0])
-	{
-		inf->precision = inf->width - 2;
-		inf->width = 0;
-	}
-	ft_do_p(inf, str, left);
-	return (inf);
+	return (ret);
 }

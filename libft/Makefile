@@ -6,7 +6,7 @@
 #    By: kparis <kparis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/10 10:45:04 by kparis            #+#    #+#              #
-#    Updated: 2020/01/13 09:45:36 by kparis           ###   ########.fr        #
+#    Updated: 2020/01/22 16:15:08 by kparis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC =	./srcs/ft_atoi.c \
 		./srcs/ft_isascii.c \
 		./srcs/ft_isdigit.c \
 		./srcs/ft_isprint.c \
+		./srcs/ft_isupper.c \
 		./srcs/ft_memccpy.c \
 		./srcs/ft_memchr.c \
 		./srcs/ft_memcmp.c \
@@ -41,6 +42,7 @@ SRC =	./srcs/ft_atoi.c \
 		./srcs/ft_split.c \
 		./srcs/ft_itoa.c \
 		./srcs/ft_itoa_base.c \
+		./srcs/ft_utoa.c \
 		./srcs/ft_strmapi.c \
 		./srcs/ft_putchar.c \
 		./srcs/ft_putchar_fd.c \
@@ -60,13 +62,13 @@ SRC =	./srcs/ft_atoi.c \
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+Ctab = -Wall -Wextra -Werror
 NAME = libft.a
 
 CC = gcc
 
 .c.o::
-		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+		$(CC) $(Ctab) -c $< -o $(<:.c=.o)
 
 $(NAME)::	$(OBJ)
 			ar -rc $(NAME) $(OBJ)
@@ -82,4 +84,3 @@ fclean:		clean
 re:		fclean all
 
 .PHONY:		all clean fclean re
-

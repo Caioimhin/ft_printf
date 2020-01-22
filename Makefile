@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: kparis <kparis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/10 15:12:30 by kevin             #+#    #+#              #
-#    Updated: 2020/01/17 14:45:13 by kparis           ###   ########.fr        #
+#    Created: 2019/11/14 11:21:04 by kparis            #+#    #+#              #
+#    Updated: 2020/01/22 16:15:08 by kparis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,34 +17,26 @@ LIBFT_H = -I libft/
 
 LIB_DIR = libft/
 
-SRC =	./ft_display_.c \
-		./ft_display_c.c \
+SRC =	./ft_display_c.c \
 		./ft_display_d.c \
+		./ft_display_others.c \
 		./ft_display_p.c \
 		./ft_display_s.c \
 		./ft_display_u.c \
-		./ft_display.c \
 		./ft_display_x.c \
 		./ft_initialize.c \
-		./ft_parse_converts.c \
-		./ft_parse_precision.c \
-		./ft_parse_specifiers.c \
-		./ft_parse_widht.c \
-		./ft_parser.c \
 		./ft_printf.c \
-		./ft_send_displays.c \
-		./ft_treatment.c \
-		./ft_reinitialize.c \
-		./ft_prec_and_width.c \
+		./ft_send_display.c \
+		./parser_flags.c
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -I./libft
+Ctab = -Wall -Wextra -Werror -I./libft
 
 CC = gcc
 
 .c.o:
-			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+			$(CC) $(Ctab) -c $< -o $(<:.c=.o)
 
 $(NAME):	$(OBJ)
 			@echo LIBFT START
@@ -60,7 +52,6 @@ all:		$(NAME)
 clean:
 			rm -f $(OBJ)
 			make -C $(LIB_DIR) clean
-			rm -rf a.out a.out.dSYM
 
 fclean:		clean
 			rm -f $(NAME)

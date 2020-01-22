@@ -5,99 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 15:20:53 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/22 12:34:02 by kparis           ###   ########.fr       */
+/*   Created: 2020/01/22 16:19:21 by kparis            #+#    #+#             */
+/*   Updated: 2020/01/22 16:19:41 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void			ft_ptr_start(uintmax_t num, char hash, char x)
+int	ft_xwidth(t_tab tab, int len)
 {
-	if (num)
-	{
-		if (hash == '#' && x == 'x')
-			write(1, "0x", 2);
-		if (hash == '#' && x == 'X')
-			write(1, "0X", 2);
-	}
-}
+	int	ret;
 
-static uintmax_t	ft_get_num(t_stc *inf)
-{
-	uintmax_t	num;
-
-	num = (unsigned int)(va_arg(inf->arg, unsigned int));
-	num = (uintmax_t)num;
-	return (num);
-}
-
-static t_stc		*ft_do_x(t_stc *inf, uintmax_t num, char *str)
-{
-	int			n_b;
-	int			n_w;
-	int			left;
-
-	left = 0;
-	(inf->convert[0] == '-') ? left = 1 : 0;
-	if ((n_w = ft_strlen(str)) && inf->convert[4] == '#' && num &&
-			inf->convert[3] == '0' && inf->width)
-		n_w += 2;
-	else if ((n_w = ft_strlen(str)) && inf->convert[4] == '#' && num)
-	{
-		inf->width -= 2;
-		inf->len += 2;
-	}
-	n_b = (n_w <= inf->precision && inf->precision > 0) ? inf->precision : n_w;
-	inf->len += (n_b <= inf->width) ? inf->width : n_b;
-	if (!left)
-		ft_display_width(inf, ' ', inf->width - n_b, 0);
-	ft_ptr_start(num, inf->convert[4], inf->specifiers_flags);
-	ft_display_width(inf, '0', inf->precision - n_w, 0);
-	ft_putstr(str);
-	if (left)
-		ft_display_width(inf, ' ', inf->width - n_b, 0);
-	return (inf);
-}
-
-static t_stc		*ft_numzero(t_stc *inf, int num)
-{
-	if (num == 0 && inf->precision == 0)
-	{
-		if (inf->f_t[inf->i - 1] == 'x' || inf->f_t[inf->i - 1] == 'X')
-			inf->i--;
-		ft_display_width(inf, ' ', inf->width, 1);
-		inf->k = 1;
-		return (inf);
-	}
+	ret = 0;
+	if (tab.zero && !tab.minus && tab.precision < 0)
+		ret += ft_dispalay_width(tab.width - len, '0');
+	else if (tab.precision >= len)
+		ret += ft_dispalay_width(tab.width - tab.precision, ' ');
 	else
-		return (inf);
+		ret += ft_dispalay_width(tab.width - len, ' ');
+	return (ret);
 }
 
-t_stc				*ft_display_x(t_stc *inf)
+int	ft_xprecision(int precision, int len)
 {
-	char		*str;
-	char		c;
-	uintmax_t	num;
+	int	i;
 
-	num = ft_get_num(inf);
-	ft_numzero(inf, num);
-	if (inf->k == 1)
-		return (inf);
-	c = 'a';
-	(inf->specifiers_flags == 'X') ? c = 'A' : 0;
-	str = ft_itoa_base(num, 16, c);
-	(inf->f_t[inf->i - 1] == 'x' || inf->f_t[inf->i - 1] == 'X') ? inf->i-- : 0;
-	if (((inf->precision < 0 && num == 0) && ((inf->convert[3] == '0' &&
-			inf->convert[6] == '.') || (inf->convert[6] == '.'))))
+	i = 0;
+	if (precision)
+		while (i < precision - len)
+		{
+			write(1, "0", 1);
+			i++;
+		}
+	return (i);
+}
+
+int	ft_xminus(t_tab tab, int len, char *str)
+{
+	int	ret;
+
+	ret = 0;
+	if (tab.minus)
 	{
-		ft_strdup("");
-		return (inf);
+		ret += ft_xprecision(tab.precision, len);
+		ret += ft_putstr_fd(str, 1);
+		ret += ft_xwidth(tab, len);
 	}
-	if (inf->convert[3] == '0' && inf->precision == -1 && !inf->convert[0])
-		inf->precision = inf->width;
-	ft_do_x(inf, num, str);
-	(num == 0 || num == '\0') ? inf->len++ : 0;
+	else if (!tab.minus)
+	{
+		ret += ft_xwidth(tab, len);
+		ret += ft_xprecision(tab.precision, len);
+		ret += ft_putstr_fd(str, 1);
+	}
+	return (ret);
+}
+
+int	ft_display_x(t_tab tab, va_list args, char c)
+{
+	char			*str;
+	int				len;
+	int				ret;
+	unsigned int	nb;
+
+	nb = va_arg(args, unsigned int);
+	if (!nb)
+		str = ft_strdup("0");
+	else
+	{
+		ft_isupper(c) ? c = 'X' : 0;
+		str = ft_itoa_base(nb, 16, c);
+	}
+	len = ft_strlen(str);
+	ret = 0;
+	if (tab.precision == 0 && *str == '0')
+	{
+		ret += ft_dispalay_width(tab.width, ' ');
+		return (ret);
+	}
+	ret += ft_xminus(tab, len, str);
 	free(str);
-	return (inf);
+	return (ret);
 }

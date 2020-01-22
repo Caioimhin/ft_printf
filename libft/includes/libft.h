@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 10:22:07 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/13 09:45:36 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/22 16:15:08 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ int				ft_isalpha(int c);
 int				ft_isascii(int c);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
+int				ft_isupper(int c);
 char			*ft_itoa(int n);
 char			*ft_itoa_base(uintmax_t value, int base, char c);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char			*ft_utoa(unsigned int n);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -67,7 +69,7 @@ char			**ft_split(const char *str, char c);
 void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr(char *s);
-void			ft_putstr_fd(char *s, int fd);
+int				ft_putstr_fd(char *s, int fd);
 void			ft_putendl(char *s);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr(int n);
