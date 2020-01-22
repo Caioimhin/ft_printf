@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:25:46 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/20 15:14:16 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/21 16:24:37 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_stc	*ft_parse_widht(t_stc *inf)
 			inf->width *= (-1);
 			inf->convert[0] = '-';
 		}
-
 		ft_parse_specifiers(inf);
 		(inf->convert[0] == '-') ? inf->i = inf->i + 1 : 0;
 	}
