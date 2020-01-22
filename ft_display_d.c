@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:19:58 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/20 15:52:39 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/22 12:38:47 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ t_stc			*ft_display_d(t_stc *inf)
 	if (((inf->precision < 0 && num == 0) && ((inf->convert[3] == '0' &&
 			inf->convert[6] == '.') || (inf->convert[6] == '.'))))
 	{
-		ft_strdup("");
+		write(1, "0", 1);
+		if (inf->convert[0] == '-')
+			ft_display_width(inf, ' ', inf->width - 1, 1);
+		inf->len += 1;
 		return (inf);
 	}
 	num_width = ft_obtain_ten(num);

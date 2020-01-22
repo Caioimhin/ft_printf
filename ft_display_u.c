@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:20:25 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/21 14:46:20 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/22 12:26:04 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ t_stc			*ft_display_u(t_stc *inf)
 	if (inf->convert[3] == '0' && inf->precision == -1 && !inf->convert[0])
 		inf->precision = inf->width;
 	ft_do_u(inf, num, num_width);
+	inf->i--;
 	return (inf);
 }

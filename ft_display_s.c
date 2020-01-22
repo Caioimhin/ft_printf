@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 15:20:15 by kevin             #+#    #+#             */
-/*   Updated: 2020/01/21 16:31:55 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/22 11:43:40 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static t_stc	*ft_dos(t_stc *inf, char *s, int len)
 {
-	ft_putchar('x');
+
 	if (inf->convert[3] == '0' && inf->convert[0] != '-')
 		ft_display_width(inf, '0', inf->width - len, 1);
 	else if (inf->convert[6] == '.' && inf->precision < inf->width)
 	{
+		if (inf->width > 0 && inf->convert[0] != '-')
+			ft_display_width(inf, ' ', inf->width - len, 1);
 		ft_putstr(s);
 		if (inf->convert[0] == '-')
 			ft_display_width(inf, ' ', inf->width - len, 1);
