@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:18 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 17:27:13 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 12:07:25 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,19 @@ int		ft_swidth(int zero, int width)
 	return (ret);
 }
 
-char	*ft_special_case(char *str, t_tab tab)
+char	*ft_special_case(char *str, t_tab tab, int *spec)
 {
 	if (!str && tab.precision)
+	{
 		str = ft_strdup("(null)");
+		*spec = 1;
+	}
+
 	else if (!str && !tab.precision)
+	{
 		str = ft_strdup("");
+		*spec = 1;
+	}
 	return (str);
 }
 
@@ -68,10 +75,12 @@ int		ft_display_s(t_tab tab, va_list args)
 	int		len;
 	int		ret;
 	int		howm;
+	int		spec;
 
 	ret = 0;
+	spec = 0;
 	str = va_arg(args, char *);
-	str = ft_special_case(str, tab);
+	str = ft_special_case(str, tab, &spec);
 	len = ft_strlen(str);
 	howm = ft_sprecision(str, len, tab.precision, 0);
 	if (tab.minus && tab.width > howm)
@@ -86,7 +95,7 @@ int		ft_display_s(t_tab tab, va_list args)
 	}
 	else
 		ret += ft_sprecision(str, len, tab.precision, 1);
-	if (ft_strcmp(str, "(null)") == 1 || ft_strcmp(str, "") == 1)
+	if (spec == 1)
 		free(str);
 	return (ret);
 }

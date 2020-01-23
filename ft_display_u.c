@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:19 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 16:19:43 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 12:12:23 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	ft_display_u(t_tab tab, va_list args)
 	if (tab.precision == 0 && *str == '0')
 	{
 		ret += ft_dispalay_width(tab.width, ' ');
+		free(str);
 		return (ret);
 	}
 	ret += ft_unsign_minus(tab, len, str);

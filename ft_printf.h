@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:28 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 17:35:02 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 12:08:25 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_tab			parser_flags(const char *format, t_tab tab, va_list args);
 int				ft_dispalay_width(int width, char c);
 t_tab			ft_parser_flag(const char *format, t_tab tab);
 int				ft_display_s(t_tab tab, va_list args);
-char			*ft_special_case(char *s, t_tab tab);
+char			*ft_special_case(char *s, t_tab tab, int *spec);
 int				ft_swidth(int zero, int width);
 int				ft_sprecision(char *s, int len, int precision, int mod);
 int				ft_display_p(t_tab tab, va_list args);
@@ -49,8 +49,8 @@ int				ft_dminus(t_tab tab, int len, char *s, int num);
 int				ft_dprecision(t_tab tab, int len, int num);
 int				ft_dwidht(t_tab tab, int len, int num);
 int				ft_display_u(t_tab tab, va_list args);
-int				ft_ft_unsign_minus(t_tab tab, int len, char *s);
-int				ft_ft_unsign_precision(int precision, int len);
+int				ft_unsign_minus(t_tab tab, int len, char *s);
+int				ft_unsign_precision(int precision, int len);
 int				ft_unsign_width(t_tab tab, int len);
 int				ft_display_x(t_tab tab, va_list args, char c);
 int				ft_xminus(t_tab tab, int len, char *s);

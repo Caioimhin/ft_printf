@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 13:40:48 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 16:15:08 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 11:54:33 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,22 @@ static t_tab_itoa	*ft_get_str(t_tab_itoa *tab, uintmax_t value,
 
 char				*ft_itoa_base(uintmax_t value, int base, char c)
 {
-	t_tab_itoa	*tab;
+	t_tab_itoa	tab;
 
-	if (!(tab = (t_tab_itoa*)malloc(sizeof(t_tab_itoa))))
-		return (0);
-	tab->flag = 0;
-	tab->size = 0;
+	tab.flag = 0;
+	tab.size = 0;
 	if (base < 2 || base > 16)
 		return (0);
 	if (value < 0 && base == 10)
-		tab->flag = 1;
-	tab->tmp = value;
-	while (tab->tmp /= base)
-		tab->size++;
-	tab->size = tab->size + tab->flag + 1;
-	tab->str = (char *)malloc(sizeof(char) * tab->size + 1);
-	tab->str[tab->size] = '\0';
-	if (tab->flag == 1)
-		tab->str[0] = '-';
-	ft_get_str(tab, value, base, c);
-	return (tab->str);
+		tab.flag = 1;
+	tab.tmp = value;
+	while (tab.tmp /= base)
+		tab.size++;
+	tab.size = tab.size + tab.flag + 1;
+	tab.str = (char *)malloc(sizeof(char) * tab.size + 1);
+	tab.str[tab.size] = '\0';
+	if (tab.flag == 1)
+		tab.str[0] = '-';
+	ft_get_str(&tab, value, base, c);
+	return (tab.str);
 }
