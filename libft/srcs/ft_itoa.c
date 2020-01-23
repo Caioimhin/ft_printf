@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:54:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/23 11:51:53 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 13:23:01 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static	char	*itoarev(char *tab, int len, int n, int sign)
 	return (tab);
 }
 
-char		*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
 	char	*tab;
 	char	*tab2;

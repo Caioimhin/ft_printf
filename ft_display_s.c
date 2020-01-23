@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:18 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/23 12:07:25 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 13:25:52 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int		ft_swidth(int zero, int width)
 
 char	*ft_special_case(char *str, t_tab tab, int *spec)
 {
+	*spec = 0;
 	if (!str && tab.precision)
 	{
 		str = ft_strdup("(null)");
 		*spec = 1;
 	}
-
 	else if (!str && !tab.precision)
 	{
 		str = ft_strdup("");
@@ -78,7 +78,6 @@ int		ft_display_s(t_tab tab, va_list args)
 	int		spec;
 
 	ret = 0;
-	spec = 0;
 	str = va_arg(args, char *);
 	str = ft_special_case(str, tab, &spec);
 	len = ft_strlen(str);
@@ -95,7 +94,6 @@ int		ft_display_s(t_tab tab, va_list args)
 	}
 	else
 		ret += ft_sprecision(str, len, tab.precision, 1);
-	if (spec == 1)
-		free(str);
+	(spec == 1) ? free(str) : 0;
 	return (ret);
 }

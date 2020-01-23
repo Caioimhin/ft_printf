@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:07:40 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/23 11:50:48 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 13:27:47 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,5 +483,6 @@ int main()
 	printf("le printf %%p, (void*)ULONG_MAX + 1) :%p\n", (void*)ULONG_MAX + 1);
 	ft_printf("ft_printf %%p, (void*)ULONG_MAX + 1) :%p\n\n", (void*)ULONG_MAX + 1);
 /**/
+	system("leaks a.out");
 	return (0);
 }
