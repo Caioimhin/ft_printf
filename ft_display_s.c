@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:18 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/23 13:25:52 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/24 11:45:50 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,21 @@ int		ft_swidth(int zero, int width)
 
 	ret = 0;
 	if (zero)
-		ret += ft_dispalay_width(width, '0');
+		ret += ft_display_width(width, '0');
 	else
-		ret += ft_dispalay_width(width, ' ');
+		ret += ft_display_width(width, ' ');
 	return (ret);
 }
 
-char	*ft_special_case(char *str, t_tab tab, int *spec)
+char	*ft_special_case(char *str, t_tab inf, int *spec)
 {
 	*spec = 0;
-	if (!str && tab.precision)
+	if (!str && inf.precision)
 	{
 		str = ft_strdup("(null)");
 		*spec = 1;
 	}
-	else if (!str && !tab.precision)
+	else if (!str && !inf.precision)
 	{
 		str = ft_strdup("");
 		*spec = 1;
@@ -69,7 +69,7 @@ char	*ft_special_case(char *str, t_tab tab, int *spec)
 	return (str);
 }
 
-int		ft_display_s(t_tab tab, va_list args)
+int		ft_display_s(t_tab inf, va_list args)
 {
 	char	*str;
 	int		len;
@@ -79,21 +79,21 @@ int		ft_display_s(t_tab tab, va_list args)
 
 	ret = 0;
 	str = va_arg(args, char *);
-	str = ft_special_case(str, tab, &spec);
+	str = ft_special_case(str, inf, &spec);
 	len = ft_strlen(str);
-	howm = ft_sprecision(str, len, tab.precision, 0);
-	if (tab.minus && tab.width > howm)
+	howm = ft_sprecision(str, len, inf.precision, 0);
+	if (inf.minus && inf.width > howm)
 	{
-		ret += ft_sprecision(str, len, tab.precision, 1);
-		ret += ft_swidth(tab.zero, (tab.width - howm));
+		ret += ft_sprecision(str, len, inf.precision, 1);
+		ret += ft_swidth(inf.zero, (inf.width - howm));
 	}
-	else if (!tab.minus && tab.width > howm)
+	else if (!inf.minus && inf.width > howm)
 	{
-		ret += ft_swidth(tab.zero, (tab.width - howm));
-		ret += ft_sprecision(str, len, tab.precision, 1);
+		ret += ft_swidth(inf.zero, (inf.width - howm));
+		ret += ft_sprecision(str, len, inf.precision, 1);
 	}
 	else
-		ret += ft_sprecision(str, len, tab.precision, 1);
+		ret += ft_sprecision(str, len, inf.precision, 1);
 	(spec == 1) ? free(str) : 0;
 	return (ret);
 }

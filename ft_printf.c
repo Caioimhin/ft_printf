@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:25 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 16:41:51 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/24 11:45:48 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_normal_case(char c)
 int	ft_printf(const char *format, ...)
 {
 	va_list args;
-	t_tab	tab;
+	t_tab	inf;
 	int		ret;
 	int		i;
 
@@ -41,11 +41,11 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1])
 		{
 			i++;
-			tab = ft_initialize(tab);
-			tab = parser_flags(&format[i], tab, args);
+			inf = ft_initialize(inf);
+			inf = parser_flags(&format[i], inf, args);
 			while (ft_flag(format[i]))
 				i++;
-			ret += ft_send_displays(format[i], tab, args);
+			ret += ft_send_displays(format[i], inf, args);
 		}
 		i++;
 	}

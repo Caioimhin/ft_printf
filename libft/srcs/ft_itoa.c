@@ -6,25 +6,25 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:54:10 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/23 13:23:01 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 15:20:43 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static	char	*ft_rev(char *tab)
+static	char	*ft_rev(char *inf)
 {
 	int		len;
 	int		i;
 	char	*tab2;
 
-	len = ft_strlen(tab);
+	len = ft_strlen(inf);
 	if (!(tab2 = malloc(sizeof(char) * len + 1)))
 		return (0);
 	i = 0;
 	while (len)
 	{
-		tab2[i++] = tab[len - 1];
+		tab2[i++] = inf[len - 1];
 		len--;
 	}
 	tab2[i] = 0;
@@ -44,31 +44,31 @@ static	int		get_intlen(int n)
 	return (len);
 }
 
-static	char	*itoarev(char *tab, int len, int n, int sign)
+static	char	*itoarev(char *inf, int len, int n, int sign)
 {
 	int i;
 
 	i = 0;
 	while (i < len)
 	{
-		tab[i++] = (n % 10) + '0';
+		inf[i++] = (n % 10) + '0';
 		n = n / 10;
 		if (n == 0 && sign == 1)
-			tab[i++] = '-';
+			inf[i++] = '-';
 	}
-	tab[i] = 0;
-	return (tab);
+	inf[i] = 0;
+	return (inf);
 }
 
 char			*ft_itoa(int n)
 {
-	char	*tab;
+	char	*inf;
 	char	*tab2;
 	int		sign;
 	int		len;
 
 	sign = 0;
-	tab = 0;
+	inf = 0;
 	tab2 = 0;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
@@ -80,10 +80,10 @@ char			*ft_itoa(int n)
 		n = n * -1;
 	}
 	len = get_intlen(n);
-	if (!(tab = malloc(sizeof(char) * (len + sign + 1))))
+	if (!(inf = malloc(sizeof(char) * (len + sign + 1))))
 		return (0);
-	tab = itoarev(tab, len, n, sign);
-	tab2 = ft_rev(tab);
-	free(tab);
+	inf = itoarev(inf, len, n, sign);
+	tab2 = ft_rev(inf);
+	free(inf);
 	return (tab2);
 }

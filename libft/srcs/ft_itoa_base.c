@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 13:40:48 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/23 11:54:33 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/23 15:20:43 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,40 @@ static int			ft_sign(uintmax_t nb)
 	return (nb);
 }
 
-static t_tab_itoa	*ft_get_str(t_tab_itoa *tab, uintmax_t value,
+static t_tab_itoa	*ft_get_str(t_tab_itoa *inf, uintmax_t value,
 								int base, char c)
 {
 	if (c >= 'a' && c <= 'z')
-		tab->str_bases = "0123456789abcdef";
+		inf->str_bases = "0123456789abcdef";
 	if (c >= 'A' && c <= 'Z')
-		tab->str_bases = "0123456789ABCDEF";
-	while (tab->size > tab->flag)
+		inf->str_bases = "0123456789ABCDEF";
+	while (inf->size > inf->flag)
 	{
-		tab->str[tab->size - 1] = tab->str_bases[ft_sign(value % base)];
-		tab->size--;
+		inf->str[inf->size - 1] = inf->str_bases[ft_sign(value % base)];
+		inf->size--;
 		value /= base;
 	}
-	return (tab);
+	return (inf);
 }
 
 char				*ft_itoa_base(uintmax_t value, int base, char c)
 {
-	t_tab_itoa	tab;
+	t_tab_itoa	inf;
 
-	tab.flag = 0;
-	tab.size = 0;
+	inf.flag = 0;
+	inf.size = 0;
 	if (base < 2 || base > 16)
 		return (0);
 	if (value < 0 && base == 10)
-		tab.flag = 1;
-	tab.tmp = value;
-	while (tab.tmp /= base)
-		tab.size++;
-	tab.size = tab.size + tab.flag + 1;
-	tab.str = (char *)malloc(sizeof(char) * tab.size + 1);
-	tab.str[tab.size] = '\0';
-	if (tab.flag == 1)
-		tab.str[0] = '-';
-	ft_get_str(&tab, value, base, c);
-	return (tab.str);
+		inf.flag = 1;
+	inf.tmp = value;
+	while (inf.tmp /= base)
+		inf.size++;
+	inf.size = inf.size + inf.flag + 1;
+	inf.str = (char *)malloc(sizeof(char) * inf.size + 1);
+	inf.str[inf.size] = '\0';
+	if (inf.flag == 1)
+		inf.str[0] = '-';
+	ft_get_str(&inf, value, base, c);
+	return (inf.str);
 }

@@ -6,23 +6,23 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:19 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/23 12:12:23 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/24 11:45:48 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_unsign_width(t_tab tab, int len)
+int	ft_unsign_width(t_tab inf, int len)
 {
 	int	ret;
 
 	ret = 0;
-	if (tab.zero && !tab.minus && tab.precision < 0)
-		ret += ft_dispalay_width(tab.width - len, '0');
-	else if (tab.precision >= len)
-		ret += ft_dispalay_width(tab.width - tab.precision, ' ');
+	if (inf.zero && !inf.minus && inf.precision < 0)
+		ret += ft_display_width(inf.width - len, '0');
+	else if (inf.precision >= len)
+		ret += ft_display_width(inf.width - inf.precision, ' ');
 	else
-		ret += ft_dispalay_width(tab.width - len, ' ');
+		ret += ft_display_width(inf.width - len, ' ');
 	return (ret);
 }
 
@@ -40,27 +40,27 @@ int	ft_unsign_precision(int precision, int len)
 	return (i);
 }
 
-int	ft_unsign_minus(t_tab tab, int len, char *str)
+int	ft_unsign_minus(t_tab inf, int len, char *str)
 {
 	int	ret;
 
 	ret = 0;
-	if (tab.minus)
+	if (inf.minus)
 	{
-		ret += ft_unsign_precision(tab.precision, len);
+		ret += ft_unsign_precision(inf.precision, len);
 		ret += ft_putstr_fd(str, 1);
-		ret += ft_unsign_width(tab, len);
+		ret += ft_unsign_width(inf, len);
 	}
-	else if (!tab.minus)
+	else if (!inf.minus)
 	{
-		ret += ft_unsign_width(tab, len);
-		ret += ft_unsign_precision(tab.precision, len);
+		ret += ft_unsign_width(inf, len);
+		ret += ft_unsign_precision(inf.precision, len);
 		ret += ft_putstr_fd(str, 1);
 	}
 	return (ret);
 }
 
-int	ft_display_u(t_tab tab, va_list args)
+int	ft_display_u(t_tab inf, va_list args)
 {
 	char	*str;
 	int		len;
@@ -69,13 +69,13 @@ int	ft_display_u(t_tab tab, va_list args)
 	str = ft_utoa(va_arg(args, unsigned int));
 	len = ft_strlen(str);
 	ret = 0;
-	if (tab.precision == 0 && *str == '0')
+	if (inf.precision == 0 && *str == '0')
 	{
-		ret += ft_dispalay_width(tab.width, ' ');
+		ret += ft_display_width(inf.width, ' ');
 		free(str);
 		return (ret);
 	}
-	ret += ft_unsign_minus(tab, len, str);
+	ret += ft_unsign_minus(inf, len, str);
 	free(str);
 	return (ret);
 }

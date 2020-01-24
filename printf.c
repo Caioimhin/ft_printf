@@ -6,7 +6,7 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:20:55 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 16:20:58 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/24 11:45:48 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	normal_char(char c)
 
 int	ft_printf(const char *format, ...)
 {
-	t_tab	tab;
+	t_tab	inf;
 	int		ret;
 	int		i;
 
@@ -43,12 +43,12 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1])
 		{
 			i++;
-			tab = ft_initialize(tab);
-			tab = ft_parser_flag(&format[i], tab);
+			inf = ft_initialize(inf);
+			inf = ft_parser_flag(&format[i], inf);
 			while (ft_flag(format[i]))
 				i++;
-			ret += ft_send_displays(format[i], tab);
-			i += tab.advance;
+			ret += ft_send_displays(format[i], inf);
+			i += inf.advance;
 		}
 		i++;
 	}

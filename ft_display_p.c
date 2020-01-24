@@ -6,33 +6,33 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:15 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 16:19:47 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/24 11:45:48 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_pminus(t_tab tab, int len, char *str)
+int	ft_pminus(t_tab inf, int len, char *str)
 {
 	int	ret;
 
 	ret = 0;
-	if (tab.minus)
+	if (inf.minus)
 	{
 		ret += ft_putstr_fd("0x", 1);
 		ret += ft_putstr_fd(str, 1);
-		ret += ft_dispalay_width(tab.width - (len + 2), ' ');
+		ret += ft_display_width(inf.width - (len + 2), ' ');
 	}
-	else if (!tab.minus)
+	else if (!inf.minus)
 	{
-		ret += ft_dispalay_width(tab.width - (len + 2), ' ');
+		ret += ft_display_width(inf.width - (len + 2), ' ');
 		ret += ft_putstr_fd("0x", 1);
 		ret += ft_putstr_fd(str, 1);
 	}
 	return (ret);
 }
 
-int	ft_display_p(t_tab tab, va_list args)
+int	ft_display_p(t_tab inf, va_list args)
 {
 	char				*str;
 	int					len;
@@ -46,7 +46,7 @@ int	ft_display_p(t_tab tab, va_list args)
 		str = ft_itoa_base(nb, 16, 'a');
 	len = ft_strlen(str);
 	ret = 0;
-	ret += ft_pminus(tab, len, str);
+	ret += ft_pminus(inf, len, str);
 	free(str);
 	return (ret);
 }

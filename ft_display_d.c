@@ -6,51 +6,51 @@
 /*   By: kparis <kparis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:19:11 by kparis            #+#    #+#             */
-/*   Updated: 2020/01/22 17:30:23 by kparis           ###   ########.fr       */
+/*   Updated: 2020/01/24 11:45:48 by kparis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_dwidht(t_tab tab, int len, int nb)
+int	ft_dwidht(t_tab inf, int len, int nb)
 {
 	int	ret;
 
 	ret = 0;
-	if (tab.zero)
+	if (inf.zero)
 	{
 		if (nb < 0)
 		{
 			write(1, "-", 1);
 			ret++;
 		}
-		ret += ft_dispalay_width(tab.width - len, '0');
+		ret += ft_display_width(inf.width - len, '0');
 	}
-	else if (tab.precision >= len)
+	else if (inf.precision >= len)
 	{
 		if (nb < 0)
-			ret += ft_dispalay_width(tab.width - tab.precision - 1, ' ');
+			ret += ft_display_width(inf.width - inf.precision - 1, ' ');
 		else
-			ret += ft_dispalay_width(tab.width - tab.precision, ' ');
+			ret += ft_display_width(inf.width - inf.precision, ' ');
 	}
 	else
-		ret += ft_dispalay_width(tab.width - len, ' ');
+		ret += ft_display_width(inf.width - len, ' ');
 	return (ret);
 }
 
-int	ft_dprecision(t_tab tab, int len, int nb)
+int	ft_dprecision(t_tab inf, int len, int nb)
 {
 	int	i;
 	int ret;
 
 	i = 0;
 	ret = 0;
-	if (nb < 0 && tab.precision < len && !tab.zero)
+	if (nb < 0 && inf.precision < len && !inf.zero)
 	{
 		write(1, "-", 1);
 		return (1);
 	}
-	if (tab.precision > 0)
+	if (inf.precision > 0)
 	{
 		if (nb < 0)
 		{
@@ -58,7 +58,7 @@ int	ft_dprecision(t_tab tab, int len, int nb)
 			ret++;
 			i--;
 		}
-		while (i++ < tab.precision - len)
+		while (i++ < inf.precision - len)
 		{
 			write(1, "0", 1);
 			ret++;
@@ -67,29 +67,29 @@ int	ft_dprecision(t_tab tab, int len, int nb)
 	return (ret);
 }
 
-int	ft_dminus(t_tab tab, int len, char *str, int nb)
+int	ft_dminus(t_tab inf, int len, char *str, int nb)
 {
 	int	ret;
 
 	ret = 0;
 	if (nb < 0)
 		str++;
-	if (tab.minus)
+	if (inf.minus)
 	{
-		ret += ft_dprecision(tab, len, nb);
+		ret += ft_dprecision(inf, len, nb);
 		ret += ft_putstr_fd(str, 1);
-		ret += ft_dwidht(tab, len, nb);
+		ret += ft_dwidht(inf, len, nb);
 	}
-	else if (!tab.minus)
+	else if (!inf.minus)
 	{
-		ret += ft_dwidht(tab, len, nb);
-		ret += ft_dprecision(tab, len, nb);
+		ret += ft_dwidht(inf, len, nb);
+		ret += ft_dprecision(inf, len, nb);
 		ret += ft_putstr_fd(str, 1);
 	}
 	return (ret);
 }
 
-int	ft_display_d(t_tab tab, va_list args)
+int	ft_display_d(t_tab inf, va_list args)
 {
 	int		nb;
 	char	*str;
@@ -100,15 +100,15 @@ int	ft_display_d(t_tab tab, va_list args)
 	str = ft_itoa(nb);
 	len = ft_strlen(str);
 	ret = 0;
-	if (tab.zero && (tab.minus || tab.precision >= 0))
-		tab.zero = 0;
-	if (tab.precision == 0 && *str == '0')
+	if (inf.zero && (inf.minus || inf.precision >= 0))
+		inf.zero = 0;
+	if (inf.precision == 0 && *str == '0')
 	{
-		ret += ft_dispalay_width(tab.width, ' ');
+		ret += ft_display_width(inf.width, ' ');
 		free(str);
 		return (ret);
 	}
-	ret += ft_dminus(tab, len, str, nb);
+	ret += ft_dminus(inf, len, str, nb);
 	free(str);
 	return (ret);
 }
